@@ -84,8 +84,7 @@ function Bbslist() {
                 </tr>
             </table>
 
-
-
+            <br />
 
             <table className="table table-hover">
                 <thead>

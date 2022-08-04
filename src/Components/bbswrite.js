@@ -23,7 +23,7 @@ export default function Bbswrite() {
                         history("/bbslist");
                     })
                     .catch(function(error) {
-                        console.log("error");
+                        alert("게시물 등록을 실패하였습니다.");
                     }) 
     }
 

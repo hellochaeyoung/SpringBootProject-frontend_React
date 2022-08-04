@@ -54,6 +54,20 @@ export default function Bbsdetail() {
                     })
     }
 
+    const deleteBbsData = async (seq) => {
+
+        await axios.post("http://localhost:3000/deleteBbs", null, {params:{"seq": seq}})
+                    .then(function(resp) {
+                        alert("게시물 삭제를 완료하였습니다!");
+
+                        history("/bbslist");
+                    })
+                    .catch(function(error) {
+                        alert("게시물 삭제를 실패하였습니다.");
+                    })
+
+    }
+
     useEffect( () => {
         console.log(seq);
 
@@ -80,6 +94,10 @@ export default function Bbsdetail() {
             }
         });
         
+    }
+
+    function deleteBtn() {
+        deleteBbsData(seq);
     }
 
     function addCommentBtn() {
@@ -116,7 +134,8 @@ export default function Bbsdetail() {
                     <tr>
                         <td colSpan="2" align="center">
                             <button type="button" className="btn btn-primary" onClick={backBtn}>뒤로가기</button>&nbsp;
-                            <button type="button" className="btn btn-primary" onClick={updateBtn}>글수정</button>
+                            <button type="button" className="btn btn-primary" onClick={updateBtn}>수정</button>&nbsp;
+                            <button type="button" className="btn btn-primary" onClick={deleteBtn}>삭제</button>
                         </td>
                     </tr>
                 </tbody>

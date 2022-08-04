@@ -6,8 +6,14 @@ export default function Bbsdetail() {
 
     const seq = useParams().seq;
 
-
     const [bbs, setBbs] = useState([]);
+    const [commentlist, setCommentlist] = useState([]);
+
+    const [id, setId] = useState("");
+    const [commentContent, setCommentContent] = useState("");
+
+    const idChange = (e) => setId(e.target.value);
+    const contentChange = (e) => setCommentContent(e.target.value);
 
     const fetchData = async (s) => {
         
@@ -22,13 +28,40 @@ export default function Bbsdetail() {
                     })
     }
 
+    const commentData = async (s) => {
+
+        await axios.get("http://localhost:3000/getCommentList", {params: {"bbs" : s}})
+                    .then(function(resp) {
+                        setCommentlist(resp.data);
+                    })
+                    .catch(function(error) {
+                        alert("getCommentlist error");
+                    })
+    }
+
+    let history = useNavigate();
+
+    const addCommentData = async (seq, id, commentContent) => {
+
+        await axios.post("http://localhost:3000/addComment", {"bbs":seq, "id":id, "content":commentContent})
+                    .then(function(resp) {
+                        alert("댓글 등록을 완료하였습니다!");
+
+                        window.location.replace("/bbsdetail/" + seq);
+                    })
+                    .catch(function(error) {
+                        alert("댓글 등록을 실패하였습니다.");
+                    })
+    }
+
     useEffect( () => {
         console.log(seq);
 
         fetchData(seq);
-    },[]);
 
-    let history = useNavigate();
+        commentData(seq);
+
+    },[]);
 
     function backBtn() {
 
@@ -49,9 +82,16 @@ export default function Bbsdetail() {
         
     }
 
+    function addCommentBtn() {
+        addCommentData(seq, id, commentContent);
+    }
+
     return (
         <div>
-            <table border="1">
+
+            <br />
+
+            <table className="table">
                 <tbody>
                     <tr>
                         <th>아이디</th>
@@ -70,20 +110,80 @@ export default function Bbsdetail() {
 
                     <tr>
                         <th>내용</th>
-                        <td><textarea cols="50" rows="18" value={bbs.content} readOnly></textarea></td>
+                        <td><textarea cols="120" rows="18" value={bbs.content} readOnly></textarea></td>
                     </tr>
 
                     <tr>
                         <td colSpan="2" align="center">
-                            <button type="button" onClick={backBtn}>뒤로가기</button>
-                        </td>
-                        <td colSpan="2" align="center">
-                            <button type="button" onClick={updateBtn}>글수정</button>
+                            <button type="button" className="btn btn-primary" onClick={backBtn}>뒤로가기</button>&nbsp;
+                            <button type="button" className="btn btn-primary" onClick={updateBtn}>글수정</button>
                         </td>
                     </tr>
                 </tbody>
                 
             </table>
+
+            <br /><br />
+            
+            <h5>[댓글]</h5>
+
+            <div>
+                <table className="table">
+                    <tbody>
+                        <tr>
+                            <th>아이디</th>
+                            <td><input type="text" onChange={idChange} /></td>
+                        </tr>
+
+                        <tr>
+                            <th>댓글내용</th>
+                            <td>
+                                <textarea cols="120" rows="3" onChange={contentChange} />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colSpan="2" align="center">
+                                <button type="button" className="btn btn-primary" onClick={addCommentBtn}>댓글등록</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+            <br /><br /> 
+
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>작성자</th>
+                        <th>내용</th>
+                        <th>등록시간</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {
+                        commentlist.map(function(obj, i) {
+                            return (
+                                <TableRow obj={obj} key={i} cnt={i+1} />
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
+
         </div>
+    )
+}
+
+function TableRow(props) {
+    return (
+        <tr>
+            <td>{props.obj.id}</td>
+            <td>{props.obj.content}</td>
+            <td>{props.obj.wdate}</td>
+        </tr>
     )
 }

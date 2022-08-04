@@ -35,7 +35,7 @@ export default function Bbswrite() {
 
     return (
         <div>
-            <table border="1">
+            <table className="table">
                 <tbody>
                     <tr>
                         <th>아이디</th>
@@ -49,12 +49,12 @@ export default function Bbswrite() {
 
                     <tr>
                         <th>내용</th>
-                        <td><textarea cols="50" rows="18" value={contentValue} onChange={contentHandleChange}></textarea></td>
+                        <td><textarea cols="120" rows="18" value={contentValue} onChange={contentHandleChange}></textarea></td>
                     </tr>
 
                     <tr>
                         <td colSpan="2" align="center">
-                            <button type="button" onClick={addBbsBtn}>작성완료</button>
+                            <button type="button" className="btn btn-primary" onClick={addBbsBtn}>작성완료</button>
                         </td>
                     </tr>
                 </tbody>

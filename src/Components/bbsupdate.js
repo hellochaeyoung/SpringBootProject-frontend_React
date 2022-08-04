@@ -43,7 +43,14 @@ export default function Bbsupdate() {
 
     return (
         <div>
-            <table border="1">
+
+            <br />
+
+            <h3>게시물 수정</h3>
+
+            <br />
+            
+            <table className="table">
                 <tbody>
                     <tr>
                         <th>아이디</th>
@@ -57,12 +64,12 @@ export default function Bbsupdate() {
 
                     <tr>
                         <th>내용</th>
-                        <td><textarea cols="50" rows="18" value={content} onChange={contentHandleChange}></textarea></td>
+                        <td><textarea cols="120" rows="18" value={content} onChange={contentHandleChange}></textarea></td>
                     </tr>
 
                     <tr>
                         <td colSpan="2" align="center">
-                            <button type="button" onClick={updateBbsBtn}>수정완료</button>
+                            <button type="button" className="btn btn-primary" onClick={updateBbsBtn}>수정완료</button>
                         </td>
                     </tr>
                 </tbody>

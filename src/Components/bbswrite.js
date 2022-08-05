@@ -20,7 +20,7 @@ export default function Bbswrite() {
         setIdValue(loginId);
 
         if(loginId == null) {
-            alert("로그인 후 이용해주십시오");
+            alert("로그인 후 이용해주십시오.");
 
             history("/login");
         }

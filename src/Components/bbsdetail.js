@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 export default function Bbsdetail() {
+
+    var loginId = sessionStorage.getItem("loginId");
 
     const seq = useParams().seq;
 
@@ -12,7 +14,6 @@ export default function Bbsdetail() {
     const [id, setId] = useState("");
     const [commentContent, setCommentContent] = useState("");
 
-    const idChange = (e) => setId(e.target.value);
     const contentChange = (e) => setCommentContent(e.target.value);
 
     const fetchData = async (s) => {
@@ -69,7 +70,6 @@ export default function Bbsdetail() {
     }
 
     useEffect( () => {
-        console.log(seq);
 
         fetchData(seq);
 
@@ -85,30 +85,44 @@ export default function Bbsdetail() {
 
     function updateBtn() {
 
-        var loginId = sessionStorage.getItem("loginId");
-
         if(loginId !== bbs.id) {
-            alert("권한이 없습니다.");
+            alert("수정할 권한이 없습니다.");
 
-            window.location.replace("/bbsdetail/" + seq);
+            //window.location.replace("/bbsdetail/" + seq);
+        }else {
+            history('/bbsupdate', {
+                state: {
+                    seq: seq,
+                    id: bbs.id,
+                    title: bbs.title,
+                    content: bbs.content
+                }
+            });
         }
         
-        history('/bbsupdate', {
-            state: {
-                seq: seq,
-                id: bbs.id,
-                title: bbs.title,
-                content: bbs.content
-            }
-        });
+        
         
     }
 
     function deleteBtn() {
-        deleteBbsData(seq);
+
+        if(loginId !== bbs.id) {
+            alert("삭제할 권한이 없습니다.");
+
+            //window.location.replace("/bbsdetail/" + seq);
+        }else {
+            deleteBbsData(seq);
+        }
+
     }
 
     function addCommentBtn() {
+        
+        if(loginId == null) {
+            alert("로그인 후 이용해주십시오.");
+
+            history("/login");
+        }
         addCommentData(seq, id, commentContent);
     }
 
@@ -159,19 +173,19 @@ export default function Bbsdetail() {
                     <tbody>
                         <tr>
                             <th>아이디</th>
-                            <td><input type="text" onChange={idChange} /></td>
+                            <td><input type="text" value={loginId} readOnly disabled={loginId === null ? true : false}/></td>
                         </tr>
 
                         <tr>
                             <th>댓글내용</th>
                             <td>
-                                <textarea cols="120" rows="3" onChange={contentChange} />
+                                <textarea id="commentContent" cols="120" rows="3" onChange={contentChange} disabled={loginId === null ? true : false}/>
                             </td>
                         </tr>
 
                         <tr>
                             <td colSpan="2" align="center">
-                                <button type="button" className="btn btn-primary" onClick={addCommentBtn}>댓글등록</button>
+                                <button type="button" className="btn btn-primary" onClick={addCommentBtn} disabled={loginId === null ? true : false}>댓글등록</button>
                             </td>
                         </tr>
                     </tbody>

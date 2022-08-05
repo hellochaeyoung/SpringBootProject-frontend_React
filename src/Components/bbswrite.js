@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {useNavigate} from "react-router-dom";
 
 export default function Bbswrite() {
@@ -8,11 +8,27 @@ export default function Bbswrite() {
     const [titleValue, setTitleValue] = useState("");
     const [contentValue, setContentValue] = useState("");
 
-    const idHandleChange = (e) =>  setIdValue(e.target.value);
     const titleHandleChange = (e) => setTitleValue(e.target.value);
     const contentHandleChange = (e) => setContentValue(e.target.value);
 
     let history = useNavigate();
+
+    var loginId = "";
+
+    const checkLogin = () => {
+        loginId = sessionStorage.getItem("loginId");
+        setIdValue(loginId);
+
+        if(loginId == null) {
+            alert("로그인 후 이용해주십시오");
+
+            history("/login");
+        }
+    }
+
+    useEffect( () => {
+        checkLogin();
+    }, []);
 
     const fetchData = async (id, title, content) => {
 
@@ -42,7 +58,7 @@ export default function Bbswrite() {
                 <tbody>
                     <tr>
                         <th>아이디</th>
-                        <td><input type="text" value={idValue} onChange={idHandleChange} /></td>
+                        <td><input type="text" value={idValue} readOnly /></td>
                     </tr>
 
                     <tr>

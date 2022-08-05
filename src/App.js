@@ -74,7 +74,7 @@ function App() {
       </BrowserRouter>
 
       <footer className="py-4 bg-info text-light">
-        <div className="container text-center">
+        <div className="container text-center wrap">
           <ul className="nav justify-content-center mb-3">
             <li className="nav-item">
               <a className="nav-link" href="/">Top</a>
@@ -97,24 +97,16 @@ function Home() {
   return (
     <div>
       <h2>Home</h2>
+      <br />
+
+      <div id="wrap">
+        <Link className="btn btn-primary" to="/bbslist">글 목록</Link>
+        <br />
+        <br />
+        <Link className="btn btn-primary" to="/bbswrite">글쓰기</Link>
+      </div>
     </div>
   )
 }
-
-// function Bbslist() {
-//   return (
-//     <div>
-//       <h2>Bbslist</h2>
-//     </div>
-//   )
-// }
-
-// function Bbswrite() {
-//   return (
-//     <div>
-//       <h2>Bbswrite</h2>
-//     </div>
-//   )
-// }
 
 export default App;

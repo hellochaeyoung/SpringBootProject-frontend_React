@@ -35,6 +35,9 @@ export default function Bbswrite() {
 
     return (
         <div>
+            <h3>게시물 작성</h3>
+            <br />
+            
             <table className="table">
                 <tbody>
                     <tr>

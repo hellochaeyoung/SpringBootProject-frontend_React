@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom"
 import Bbsdetail from "./Components/bbsdetail";
 import Bbslist from "./Components/bbslist";
@@ -10,15 +10,27 @@ import Register from "./Components/register";
 import './main.css';
 
 function App() {
+
+  var loginId = sessionStorage.getItem("loginId");
+
+  const [checkLogin, setCheckLogin] = useState(false);
+
+  useEffect( () => {
+    if(loginId != null) {
+      setCheckLogin(true);
+    }
+  },[])
+
   return (
     <div>
+      <BrowserRouter>
       <header className="py-4">
         <div className="container text-center">
           <img alt="" src="header.jpg" width='960' height='150' />
         </div>
       </header>
 
-      <BrowserRouter>
+      
       <nav className="navbar navbar-expand-md navbar-dark bg-info sticky-top">
           <div className="container">
 
@@ -46,7 +58,8 @@ function App() {
                 </li>
 
                 <li>
-                  <Link className="nav-link" to="/login">로그인</Link>
+                  {checkLogin === false ?
+                    <Link className="nav-link" to="/login">로그인</Link> : <Link className="nav-link" onClick={ () => {sessionStorage.removeItem("loginId"); setCheckLogin(false);}} to="/">로그아웃</Link>}
                 </li>
 
                 <li>
@@ -76,7 +89,7 @@ function App() {
 
                 <Route path="/register" element={<Register />}></Route>
 
-                <Route path="/login" element={<Login />}></Route>
+                <Route path="/login" element={<Login setCheckLogin={setCheckLogin} />}></Route>
 
               </Routes>
 

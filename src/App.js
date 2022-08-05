@@ -4,6 +4,8 @@ import Bbsdetail from "./Components/bbsdetail";
 import Bbslist from "./Components/bbslist";
 import Bbsupdate from "./Components/bbsupdate";
 import Bbswrite from "./Components/bbswrite";
+import Login from "./Components/login";
+import Register from "./Components/register";
 
 import './main.css';
 
@@ -41,7 +43,14 @@ function App() {
 
                 <li>
                   <Link className="nav-link" to="/bbslist">자료실</Link>
-                  
+                </li>
+
+                <li>
+                  <Link className="nav-link" to="/login">로그인</Link>
+                </li>
+
+                <li>
+                  <Link className="nav-link" to="/register">회원가입</Link>
                 </li>
               
               </ul>
@@ -64,6 +73,10 @@ function App() {
                 <Route path="/bbsdetail/:seq" element={<Bbsdetail />}></Route>
 
                 <Route path="/bbsupdate" element={<Bbsupdate />}></Route>
+
+                <Route path="/register" element={<Register />}></Route>
+
+                <Route path="/login" element={<Login />}></Route>
 
               </Routes>
 

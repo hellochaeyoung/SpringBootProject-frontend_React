@@ -84,6 +84,14 @@ export default function Bbsdetail() {
     }
 
     function updateBtn() {
+
+        var loginId = sessionStorage.getItem("loginId");
+
+        if(loginId !== bbs.id) {
+            alert("권한이 없습니다.");
+
+            window.location.replace("/bbsdetail/" + seq);
+        }
         
         history('/bbsupdate', {
             state: {

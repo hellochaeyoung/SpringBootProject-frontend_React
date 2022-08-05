@@ -14,6 +14,8 @@ export default function Bbsdetail() {
     const [id, setId] = useState("");
     const [commentContent, setCommentContent] = useState("");
 
+    const [readCount, setReadCount] = useState(0);
+
     const contentChange = (e) => setCommentContent(e.target.value);
 
     const fetchData = async (s) => {
@@ -23,6 +25,7 @@ export default function Bbsdetail() {
                         console.log(resp);
 
                         setBbs(resp.data);
+                        setReadCount(resp.data.readCount);
                     })
                     .catch(function(error) {
                         console.log("error");
@@ -42,9 +45,9 @@ export default function Bbsdetail() {
 
     let history = useNavigate();
 
-    const addCommentData = async (seq, id, commentContent) => {
+    const addCommentData = async (seq, commentContent) => {
 
-        await axios.post("http://localhost:3000/addComment", {"bbs":seq, "id":id, "content":commentContent})
+        await axios.post("http://localhost:3000/addComment", {"bbs":seq, "id":loginId, "content":commentContent})
                     .then(function(resp) {
                         alert("댓글 등록을 완료하였습니다!");
 
@@ -69,9 +72,22 @@ export default function Bbsdetail() {
 
     }
 
+    const updateReadCount = async (seq) => {
+
+        await axios.post("http://localhost:3000/checkReadBbs", {"bbs":seq, "id":loginId})
+                    .then(function(resp) {
+                        setReadCount(resp.data);
+                    })
+                    .catch(function(error) {
+                        console.log("error");
+                    })
+    }
+
     useEffect( () => {
 
         fetchData(seq);
+
+        updateReadCount(seq);
 
         commentData(seq);
 
@@ -87,8 +103,6 @@ export default function Bbsdetail() {
 
         if(loginId !== bbs.id) {
             alert("수정할 권한이 없습니다.");
-
-            //window.location.replace("/bbsdetail/" + seq);
         }else {
             history('/bbsupdate', {
                 state: {
@@ -108,8 +122,6 @@ export default function Bbsdetail() {
 
         if(loginId !== bbs.id) {
             alert("삭제할 권한이 없습니다.");
-
-            //window.location.replace("/bbsdetail/" + seq);
         }else {
             deleteBbsData(seq);
         }
@@ -123,7 +135,7 @@ export default function Bbsdetail() {
 
             history("/login");
         }
-        addCommentData(seq, id, commentContent);
+        addCommentData(seq, commentContent);
     }
 
     return (
@@ -146,6 +158,11 @@ export default function Bbsdetail() {
                     <tr>
                         <th>작성시간</th>
                         <td>{bbs.wdate}</td>
+                    </tr>
+
+                    <tr>
+                        <th>조회수</th>
+                        <td>{readCount}</td>
                     </tr>
 
                     <tr>

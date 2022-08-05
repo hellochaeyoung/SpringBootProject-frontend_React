@@ -83,7 +83,7 @@ export default function Register() {
 
                     <tr>
                         <td colSpan="2" align="center">
-                            <button type="button" onClick={registerBtn}>회원가입</button>
+                            <button type="button" className="btn btn-primary" onClick={registerBtn}>회원가입</button>
                         </td>
                     </tr>
                     

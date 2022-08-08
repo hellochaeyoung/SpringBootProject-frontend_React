@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# 게시판 구현 프로젝트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# [개요]
 
-## Available Scripts
+- Spring Boot와 React를 활용하여 게시판을 구현해보는 프로젝트를 진행
 
-In the project directory, you can run:
+# [기술 스택]
 
-### `npm start`
+- FrontEnd : React(Javascript, HTML, CSS), Axios
+- BackEnd : Spring Boot, JAVA, MyBatis
+- Database : MySQL
+- SCM : Git
+- IDE : Intellij, VSCode
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# [구현 페이지]
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. 메인 페이지
 
-### `npm test`
+- 상단의 메뉴 또는 메인의 버튼을 통해 글 목록 또는 글쓰기 페이지로 이동할 수 있습니다.
+- 글쓰기 기능은 로그인 후에만 사용 가능하므로 비로그인 시 로그인 페이지로 이동합니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3d67c72b-ee2b-4484-bad1-c02f569936a6/Untitled.png)
 
-### `npm run build`
+### 2. 로그인 페이지
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 아이디와 비밀번호를 입력하여 로그인을 진행합니다.
+- 아직 비회원일 시 ‘회원가입’ 버튼을 통해 회원가입 페이지로 이동할 수 있습니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/83c128e5-5f33-4715-8b08-453750d1e11c/Untitled.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. 회원가입 페이지
 
-### `npm run eject`
+- 아이디, 비밀번호, 이름, 이메일을 입력하여 회원가입을 진행할 수 있습니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6038c4f5-dd1b-4a00-99a4-e0edbedfd932/Untitled.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 4. 글 목록 페이지
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- 비 로그인 시에도 게시물 목록 페이지를 조회할 수 있습니다.
+- 검색 시 [제목, 내용, 작성자] 조건과 키워드를 조합하여 조회할 수 있습니다.
+- 페이징 처리를 하여 화면에서 10개의 게시물만 최신 등록순으로 조회되고 페이지 번호를 통해 이전 등록된 게시물들을 조회할 수 있습니다.
+- 마찬가지로 글쓰기 기능은 로그인 후에만 가능하므로 비 로그인 시 로그인 화면으로 이동합니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/930ceac0-b2f9-4c72-a430-fa5b579e247e/Untitled.png)
 
-## Learn More
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d4f056ee-7129-4c03-a329-2b6637dfcf9b/Untitled.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/60feaca8-b882-4553-9b2f-ae480535d7ab/Untitled.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/80f70f1b-4759-4bc6-a67c-9a940c2d2564/Untitled.png)
 
-### Code Splitting
+### 5. 게시물 작성 페이지
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- 제목과 내용 입력 후 게시물을 등록할 수 있습니다.
 
-### Analyzing the Bundle Size
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/132c9f3f-eba1-4b80-99bc-f38aad1fe236/Untitled.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 6. 게시물 상세 페이지
 
-### Making a Progressive Web App
+- 작성자 아이디, 제목, 작성시간, 내용을 상세 조회할 수 있습니다.
+- ‘뒤로가기’ 버튼을 통해 이전 페이지로 이동할 수 있습니다.
+- 본인이 작성한 글만 ‘수정’ 및 ‘삭제’ 버튼을 통해 수정할 수 있습니다.
+- 게시물에 대한 댓글을 남길 수 있습니다.
+- 하단에는 해당 게시물에 달린 댓글 목록을 조회할 수 있습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4e6261bb-192a-4fa1-a1a8-51a0b9316b41/Untitled.png)
 
-### Advanced Configuration
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9cc5123a-ffbb-480c-b762-302ee8c95004/Untitled.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2cf0d56d-fab5-4a02-8e1b-415bd9e7d1b8/Untitled.png)
 
-### Deployment
+### 7. 게시물 수정 페이지
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 본인이 작성한 게시물의 제목과 내용을 수정할 수 있습니다.

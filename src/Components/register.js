@@ -27,9 +27,9 @@ export default function Register() {
 
     let history = useNavigate();
 
-    const register = async() => {
+    const register = async(id, pw, name, email) => {
 
-        await axios.post("http://localhost:3000/register", {"id":id, "pw":pw, "name":name, "email":email})
+        await axios.post("http://localhost:3000/register", {"id":id, "pwd":pw, "name":name, "email":email})
                     .then(function(resp) {
                         if(resp.data === 1) {
                             alert("회원가입이 완료되었습니다!");
@@ -43,7 +43,8 @@ export default function Register() {
     }
 
     function registerBtn() {
-        register();
+        console.log(pw);
+        register(id, pw, name, email);
     }
 
     return (

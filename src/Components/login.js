@@ -43,8 +43,7 @@ export default function Login(props) {
                         
                     })
                     .catch(function(error) {
-                        //alert("로그인에 실패했습니다.");
-                        console.log(error);
+                        alert("로그인에 실패했습니다.");
                     })
     }
 

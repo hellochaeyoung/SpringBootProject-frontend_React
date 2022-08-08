@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react"
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom"
 import Bbsdetail from "./Components/bbsdetail";
@@ -14,6 +15,20 @@ function App() {
   var loginId = sessionStorage.getItem("loginId");
 
   const [checkLogin, setCheckLogin] = useState(false);
+
+  const logout = async () => {
+    
+    await axios.get("http://localhost:3000/logout")
+                .then(function(resp) {
+
+                  sessionStorage.removeItem("loginId");
+
+                  setCheckLogin(false);
+                })
+                .catch(function(error) {
+                  console.log(error);
+                })
+  }
 
   useEffect( () => {
     if(loginId != null) {
@@ -59,7 +74,7 @@ function App() {
 
                 <li>
                   {checkLogin === false ?
-                    <Link className="nav-link" to="/login">로그인</Link> : <Link className="nav-link" onClick={ () => {sessionStorage.removeItem("loginId"); setCheckLogin(false);}} to="/">로그아웃</Link>}
+                    <Link className="nav-link" to="/login">로그인</Link> : <Link className="nav-link" onClick={ () => {logout()}} to="/">로그아웃</Link>}
                 </li>
 
                 <li>
@@ -134,5 +149,6 @@ function Home() {
     </div>
   )
 }
+
 
 export default App;
